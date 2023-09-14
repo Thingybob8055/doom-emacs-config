@@ -1010,7 +1010,9 @@
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
+;; Key Rebinds
 (evil-define-key 'normal org-mode-map (kbd "g l") 'org-down-element)
+(map! :leader :desc "org agenda" "a g" #'org-agenda)
 
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
