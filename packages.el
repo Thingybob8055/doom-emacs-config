@@ -100,3 +100,5 @@
 (package! git-gutter-fringe)
 (package! lsp-latex)
 (package! elcord)
+(package! cl-lib)
+(package! visual-fill-column)

@@ -77,6 +77,8 @@
      ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
      ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
      ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))
+ '(custom-safe-themes
+   '("ac18cc10455c6c26a98354ba8f9d338842d7ecc9ae3d28c205ed154ef20d74ce" default))
  '(elcord-display-line-numbers nil)
  '(elcord-editor-icon "emacs_icon")
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")

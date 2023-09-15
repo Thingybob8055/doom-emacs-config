@@ -171,7 +171,7 @@
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
 
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-one)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
@@ -276,7 +276,7 @@
 (autoload 'exwm-enable "exwm-config.el")
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 14)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
       doom-big-font (font-spec :family "JetBrains Mono" :size 23))
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -284,6 +284,25 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+
+ ;; Copied from stackoverflow, this retains colors for org src blocks and tables, while making them monospaced
+(defun my-adjoin-to-list-or-symbol (element list-or-symbol)
+  (let ((list (if (not (listp list-or-symbol))
+                  (list list-or-symbol)
+                list-or-symbol)))
+    (require 'cl-lib)
+    (cl-adjoin element list)))
+
+(eval-after-load "org"
+  '(mapc
+    (lambda (face)
+      (set-face-attribute
+       face nil
+       :inherit
+       (my-adjoin-to-list-or-symbol
+        'fixed-pitch
+        (face-attribute face :inherit))))
+    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line)))
 
 (defun dt/insert-todays-date (prefix)
   (interactive "P")
@@ -1596,3 +1615,19 @@
 (map! :leader
       :desc "Display the current project, and *only* the current project" "s t" #'treemacs-display-current-project-exclusively
       :desc "Open treemacs and add the current project root to the workspace"  "s T" #'treemacs-add-and-display-current-project)
+
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 150
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))

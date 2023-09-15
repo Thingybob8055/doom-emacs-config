@@ -1,5 +1,5 @@
-#+TITLE: Akash Doom Emacs Config
-#+AUTHOR: Akash Gopinath (AG)
+#+TITLE: Doom Emacs Config
+#+AUTHOR: FOOBAR
 #+DESCRIPTION: AG's personal Doom Emacs config.
 #+STARTUP: showeverything
 
@@ -73,6 +73,7 @@
 - [[#elcord][ELCORD]]
 - [[#remove-whitespace][REMOVE WHITESPACE]]
 - [[#treemacs][TREEMACS]]
+- [[#visual-column-fill-for-org][VISUAL COLUMN FILL (FOR ORG)]]
 
 * ABOUT THIS CONFIG
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.
@@ -423,7 +424,7 @@ ln -s ~/.local/share/Trash .
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for counsel-load-theme with 'SPC h t'.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-one)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+END_SRC
@@ -598,7 +599,7 @@ Settings related to fonts within Doom Emacs:
 
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 14)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
       doom-big-font (font-spec :family "JetBrains Mono" :size 23))
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -606,6 +607,26 @@ Settings related to fonts within Doom Emacs:
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+
+ ;; Copied from stackoverflow, this retains colors for org src blocks and tables, while making them monospaced
+(defun my-adjoin-to-list-or-symbol (element list-or-symbol)
+  (let ((list (if (not (listp list-or-symbol))
+                  (list list-or-symbol)
+                list-or-symbol)))
+    (require 'cl-lib)
+    (cl-adjoin element list)))
+
+(eval-after-load "org"
+  '(mapc
+    (lambda (face)
+      (set-face-attribute
+       face nil
+       :inherit
+       (my-adjoin-to-list-or-symbol
+        'fixed-pitch
+        (face-attribute face :inherit))))
+    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line)))
+
 #+END_SRC
 
 * INSERT DATE
@@ -2213,4 +2234,24 @@ This is for Discord rich presence
 (map! :leader
       :desc "Display the current project, and *only* the current project" "s t" #'treemacs-display-current-project-exclusively
       :desc "Open treemacs and add the current project root to the workspace"  "s T" #'treemacs-add-and-display-current-project)
+#+end_src
+
+* VISUAL COLUMN FILL (FOR ORG)
+
+#+begin_src emacs-lisp
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 150
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
