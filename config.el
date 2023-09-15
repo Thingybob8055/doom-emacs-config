@@ -1636,3 +1636,6 @@
   (setq line-spacing 6))
 
 (add-hook 'org-mode-hook 'line-space-increase)
+
+(setq browse-url-browser-function 'browse-url-generic)
+(setq browse-url-generic-program "firefox")
