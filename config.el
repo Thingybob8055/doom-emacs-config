@@ -1631,3 +1631,8 @@
                 treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(defun line-space-increase ()
+  (setq line-spacing 6))
+
+(add-hook 'org-mode-hook 'line-space-increase)
