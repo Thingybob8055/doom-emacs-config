@@ -302,7 +302,15 @@
        (my-adjoin-to-list-or-symbol
         'fixed-pitch
         (face-attribute face :inherit))))
-    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line)))
+    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line 'org-list-dt)))
+
+(set-frame-font "JetBrains Mono 14" nil t)
+(set-face-attribute 'variable-pitch nil :font "Cantarell")
+
+;;(add-hook 'after-make-frame-functions
+;;          (lambda (frame)
+;;            (doom/reload-font)
+;;            ))
 
 (defun dt/insert-todays-date (prefix)
   (interactive "P")
