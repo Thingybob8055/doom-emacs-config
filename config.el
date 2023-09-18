@@ -1023,7 +1023,7 @@
       ))
 
 (after! org
-  (setq org-roam-directory "~/Document/org-mode-notes/roam"
+  (setq org-roam-directory "~/Org/roam"
         org-roam-graph-viewer "/usr/bin/firefox"))
 
 (map! :leader
