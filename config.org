@@ -886,7 +886,7 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
 ** Org-agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files '("~/Documents/Org-Notes/agenda.org")))
+  (setq org-agenda-files '("~/Org/agenda.org")))
 
 (setq
    ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")

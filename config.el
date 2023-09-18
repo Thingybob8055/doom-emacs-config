@@ -449,7 +449,7 @@
              "CANCELLED(c)" )))) ; Task has been cancelled
 
 (after! org
-  (setq org-agenda-files '("~/Documents/Org-Notes/agenda.org")))
+  (setq org-agenda-files '("~/Org/agenda.org")))
 
 (setq
    ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
