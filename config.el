@@ -98,8 +98,11 @@
 (use-package! calfw-org)
 
 (setq centaur-tabs-set-bar 'over
+      centaur-tabs-set-icons t
       centaur-tabs-gray-out-icons 'buffer
+      centaur-tabs-height 24
       centaur-tabs-set-modified-marker t
+      centaur-tabs-style "bar"
       centaur-tabs-modified-marker "•")
 (map! :leader
       :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
@@ -113,19 +116,20 @@
   :init
   (setq centaur-tabs-enable-key-bindings t)
   :config
-  (setq centaur-tabs-style "bar"
-        centaur-tabs-height 32
-        centaur-tabs-set-icons t
+  (setq ;; centaur-tabs-style "bar"
+        ;; centaur-tabs-height 32
+        ;; centaur-tabs-set-icons t
         centaur-tabs-show-new-tab-button t
-        centaur-tabs-set-modified-marker t
+        ;; centaur-tabs-set-modified-marker t
         centaur-tabs-show-navigation-buttons t
-        centaur-tabs-set-bar 'under
-        centaur-tabs-show-count nil
-        ;; centaur-tabs-label-fixed-length 15
+        ;; centaur-tabs-set-bar 'under
+        ;; centaur-tabs-show-count nil
+        centaur-tabs-label-fixed-length 15
         ;; centaur-tabs-gray-out-icons 'buffer
         ;; centaur-tabs-plain-icons t
-        x-underline-at-descent-line t
-        centaur-tabs-left-edge-margin nil)
+        ;; x-underline-at-descent-line t
+        ;; centaur-tabs-left-edge-margin nil
+        )
   (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
   (centaur-tabs-headline-match)
   ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
