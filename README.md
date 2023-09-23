@@ -78,3 +78,17 @@ This is needed for `org-roam` to generate graph visualisations
 ``` bash
 sudo apt install graphviz
 ```
+
+## Installation
+
+1. First install Emacs. Latest version is recommended. On Ubuntu 22.04 LTS based Linux distributions, you can use snap to install latest version.
+2. Install Doom Emacs:
+
+``` bash
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+```
+More details about Doom Emacs can be found in the GitHub page: [Doom Emacs GitHub](https://github.com/doomemacs/doomemacs)
+
+3. Download the repo and copy the contents of this repo to the directory: `~/.config/doom`
+4. Run `doom sync` command after copying the contents.
