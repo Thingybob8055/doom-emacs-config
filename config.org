@@ -74,7 +74,7 @@
 - [[#remove-whitespace][REMOVE WHITESPACE]]
 - [[#treemacs][TREEMACS]]
 - [[#visual-column-fill-for-org][VISUAL COLUMN FILL (FOR ORG)]]
-- [[#browser-fix][Browser Fix]]
+- [[#browser-fix][BROWSER FIX]]
 
 * ABOUT THIS CONFIG
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.
@@ -2350,7 +2350,7 @@ This is for Discord rich presence
 (add-hook 'org-mode-hook 'line-space-increase)
 #+end_src
 
-* Browser Fix
+* BROWSER FIX
 #+begin_src emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic)
 (setq browse-url-generic-program "firefox")
