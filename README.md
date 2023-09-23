@@ -79,6 +79,18 @@ This is needed for `org-roam` to generate graph visualisations
 sudo apt install graphviz
 ```
 
+- **Install `ripgrep`**
+
+``` bash
+sudo apt install ripgrep
+```
+
+- **Install X11 Clipboard**
+
+``` bash
+sudo apt install xclip
+```
+
 ## Installation
 
 1. First install Emacs. Latest version is recommended. On Ubuntu 22.04 LTS based Linux distributions, you can use snap to install latest version.
