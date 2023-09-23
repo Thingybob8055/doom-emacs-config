@@ -254,6 +254,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq doom-theme 'doom-one)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
+(setq load-theme 'doom-one)
 
 (ednc-mode 1)
 
