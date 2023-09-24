@@ -101,6 +101,7 @@ git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 ```
 More details about Doom Emacs can be found in the GitHub page: [Doom Emacs GitHub](https://github.com/doomemacs/doomemacs)
+
 Run `doom sync` after installing Doom Emacs.
 
 3. Download the repo and copy the contents of this repo to the directory: `~/.config/doom`
