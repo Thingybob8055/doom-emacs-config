@@ -57,7 +57,7 @@ Installation instructions: [texlab GitHub](https://github.com/latex-lsp/texlab)
 
 - **Install GDB**
 
-`gdb` is used for Rust and C/C++ debugging
+`gdb` is used for Rust and C/C++ debugging.
 
 ``` bash
 sudo apt install gdb
@@ -73,7 +73,7 @@ sudo apt install gnome-screenshot
 
 - **Install `graphviz`**
 
-This is needed for `org-roam` to generate graph visualisations
+This is needed for `org-roam` to generate graph visualisations.
 
 ``` bash
 sudo apt install graphviz
@@ -101,6 +101,7 @@ git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 ```
 More details about Doom Emacs can be found in the GitHub page: [Doom Emacs GitHub](https://github.com/doomemacs/doomemacs)
+Run `doom sync` after installing Doom Emacs.
 
 3. Download the repo and copy the contents of this repo to the directory: `~/.config/doom`
 4. Run `doom sync` command after copying the contents.
