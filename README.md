@@ -63,6 +63,14 @@ rustup update
 
 Installation instructions: [texlab GitHub](https://github.com/latex-lsp/texlab)
 
+- **OPTIONAL: Install `texlive`**
+
+If you want to use LaTeX with Emacs
+
+``` bash
+sudo apt install texlive-full
+```
+
 - **Install GDB**
 
 `gdb` is used for Rust and C/C++ debugging.
