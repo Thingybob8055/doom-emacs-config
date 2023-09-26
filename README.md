@@ -19,6 +19,12 @@ Install the Ubuntu fonts from here: [Ubuntu Fonts](https://design.ubuntu.com/fon
 > [!NOTE]
 > The variable pitch font for `org-mode` files use Cantarall font. Should be installed by default on distros like Ubuntu and Pop!_OS. If not, please download and install this font as well.
 
+- **Install essential build tools**
+
+``` bash
+sudo apt install build-essential
+```
+
 - **Install pip**
 
 ``` bash
@@ -92,6 +98,17 @@ sudo apt install ripgrep
 ``` bash
 sudo apt install xclip
 ```
+
+<!-- - **Other packages** -->
+
+<!-- `libtool-bin` is needed to compile `vterm` -->
+
+<!-- ``` bash -->
+<!-- sudo apt install libtool -->
+<!-- sudo apt install libtool-bin -->
+<!-- ``` -->
+
+libtool-bin
 
 ## Installation
 
