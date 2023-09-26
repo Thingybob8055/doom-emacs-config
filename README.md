@@ -14,6 +14,8 @@ Found in: [config.org](./config.org)
 - **Fonts**
 
 You can download the JetBrains font here: [JetBrains Mono Font](https://www.jetbrains.com/lp/mono/)
+
+Install the Ubuntu fonts from here: [Ubuntu Fonts](https://design.ubuntu.com/font)
 > [!NOTE]
 > The variable pitch font for `org-mode` files use Cantarall font. Should be installed by default on distros like Ubuntu and Pop!_OS. If not, please download and install this font as well.
 
