@@ -52,6 +52,7 @@
   - [[#org-publish][Org-publish]]
   - [[#org-roam][Org-roam]]
   - [[#org-roam-ui][Org Roam UI]]
+  - [[#org-wild-notifier][Org Wild Notifier]]
   - [[#miscellaneous-org-mode-stuff][Miscellaneous Org Mode stuff]]
 - [[#irony-mode-and-clangd][IRONY MODE AND CLANGD]]
 - [[#ccls][CCLS]]
@@ -1503,6 +1504,19 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+#+end_src
+
+** Org Wild Notifier
+#+begin_src emacs-lisp
+  (use-package org-wild-notifier
+    :ensure t
+    :custom
+    (alert-default-style 'notifications)
+    (org-wild-notifier-alert-time '(1 10 30))
+    (org-wild-notifier-keyword-whitelist '("TODO" "NEXT" "ASSIGNMENT" "PROJECT"))
+    (org-wild-notifier-notification-title "Agenda Reminder")
+    :config
+    (org-wild-notifier-mode 1))
 #+end_src
 
 ** Miscellaneous Org Mode stuff

@@ -1022,6 +1022,16 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
+(use-package org-wild-notifier
+  :ensure t
+  :custom
+  (alert-default-style 'notifications)
+  (org-wild-notifier-alert-time '(1 10 30))
+  (org-wild-notifier-keyword-whitelist '("TODO" "NEXT" "ASSIGNMENT" "PROJECT"))
+  (org-wild-notifier-notification-title "Agenda Reminder")
+  :config
+  (org-wild-notifier-mode 1))
+
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 ;; Key Rebinds
