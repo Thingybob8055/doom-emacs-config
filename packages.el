@@ -102,3 +102,5 @@
 (package! elcord)
 (package! cl-lib)
 (package! visual-fill-column)
+(unpin! org-roam)
+(package! org-roam-ui)

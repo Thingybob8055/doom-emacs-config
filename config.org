@@ -51,6 +51,7 @@
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
   - [[#org-roam][Org-roam]]
+  - [[#org-roam-ui][Org Roam UI]]
   - [[#miscellaneous-org-mode-stuff][Miscellaneous Org Mode stuff]]
 - [[#irony-mode-and-clangd][IRONY MODE AND CLANGD]]
 - [[#ccls][CCLS]]
@@ -940,28 +941,7 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
             ("ddg" . "https://duckduckgo.com/?q=")
             ("wiki" . "https://en.wikipedia.org/wiki/"))
         org-table-convert-region-max-lines 20000
-        org-todo-keywords        ; This overwrites the default Doom org-todo-keywords
-          '((sequence
-             "TODO(t)"           ; A task that is ready to be tackled
-             "ASSIGNMENTS(a)"    ; University Assignments
-             "BLOG(b)"           ; Blog writing assignments
-             "GYM(g)"            ; Things to accomplish at the gym
-             "PROJ(p)"           ; A project that contains other tasks
-             "ROCKETRY(r)"       ; Work for York Aerospace and Rocketry(YAR)
-             "VIDEO(v)"          ; Video assignments
-             "WAIT(w)"           ; Something is holding up this task
-             "|"                 ; The pipe necessary to separate "active" states and "inactive" states
-             "BACKLOG(b)"
-             "PLAN(p)"
-             "READY(r)"
-             "ACTIVE(a)"
-             "REVIEW(v)"
-             "WAIT(w@/!)"
-             "HOLD(h)"
-             "COMPLETED(c)"
-             "CANC(k@)"
-             "DONE(d)"           ; Task has been completed
-             "CANCELLED(c)" )))) ; Task has been cancelled
+    ))
 #+END_SRC
 
 ** Org-agenda
@@ -969,72 +949,33 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
 (after! org
   (setq org-agenda-files '("~/Org/agenda.org")))
 
-(setq
-   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
-   ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
-   org-fancy-priorities-list '("🟥" "🟧" "🟨")
-   org-priority-faces
-   '((?A :foreground "#ff6c6b" :weight bold)
-     (?B :foreground "#98be65" :weight bold)
-     (?C :foreground "#c678dd" :weight bold))
-   org-agenda-block-separator 8411)
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
 
-(setq org-agenda-custom-commands
-      '(("v" "A better agenda view"
-         ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (tags "PRIORITY=\"B\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
-          (tags "PRIORITY=\"C\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
-          (tags "customtag"
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Tasks marked with customtag:")))
-
-          (agenda "")
-          (alltodo "")))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)
+  (setq org-todo-keywords
+    '((sequence "TODO(t)" "NEXT(n)" "ASSIGNMENT(a)" "PROJECT(q)" "|" "DONE(d!)")
+      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(A)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
 
   (setq org-refile-targets
     '(("Archive.org" :maxlevel . 1)
       ("Tasks.org" :maxlevel . 1)))
 
-(advice-add 'org-refile :after 'org-save-all-org-buffers)
+  ;; Save Org buffers after refiling!
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-  (setq org-tag-alist
-    '((:startgroup)
-       ; Put mutually exclusive tags here
-       (:endgroup)
-       ("@errand" . ?E)
-       ("@home" . ?H)
-       ("@work" . ?W)
-       ("agenda" . ?a)
-       ("planning" . ?p)
-       ("publish" . ?P)
-       ("batch" . ?b)
-       ("note" . ?n)
-       ("idea" . ?i)))
-
-  ;; Configure custom agenda views
   (setq org-agenda-custom-commands
    '(("d" "Dashboard"
      ((agenda "" ((org-deadline-warning-days 7)))
-      (todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))
+      (todo "ASSIGNMENT"
+        ((org-agenda-overriding-header "Assignments")))
       (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
-    ("n" "Next Tasks"
-     ((todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))))
+    ("a" "Assignments"
+     ((todo "ASSIGNMENT"
+        ((org-agenda-overriding-header "Assignments")))))
 
-    ("W" "Work Tasks" tags-todo "+work-email")
+    ("u" "Uni Tasks" tags-todo "+uni-email")
 
     ;; Low-effort next actions
     ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
@@ -1066,83 +1007,33 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
       (todo "COMPLETED"
             ((org-agenda-overriding-header "Completed Projects")
              (org-agenda-files org-agenda-files)))
+      (todo "PROJECT"
+            ((org-agenda-overriding-header "Projects")
+             (org-agenda-files org-agenda-files)))
+      (todo "ASSIGNMENT"
+            ((org-agenda-overriding-header "Active Assignments")
+             (org-agenda-files org-agenda-files)))
       (todo "CANC"
             ((org-agenda-overriding-header "Cancelled Projects")
              (org-agenda-files org-agenda-files)))))))
- (use-package org-agenda
-  :ensure nil
-  :bind (:map org-agenda-mode-map
-              ("C-n" . org-agenda-next-item)
-              ("C-p" . org-agenda-previous-item)
-              ("j" . org-agenda-goto)
-              ("X" . my/org-agenda-mark-done-next)
-              ("x" . my/org-agenda-mark-done))
-  :preface
-  (defun my/org-agenda-mark-done (&optional arg)
-    "Mark the current TODO as done in org-agenda."
-    (interactive "P")
-    (org-agenda-todo "DONE"))
 
-  (defun my/org-agenda-mark-done-next ()
-    "Mark the current TODO as done and add another task after it."
-    (interactive)
-    (org-agenda-todo "DONE")
-    (org-agenda-switch-to)
-    (org-capture 0 "t"))
-  :custom
-  (org-agenda-category-icon-alist
-   `(("home" ,(list (all-the-icons-faicon "home" :v-adjust -0.05)) nil nil :ascent center :mask heuristic)
-     ("inbox" ,(list (all-the-icons-faicon "inbox" :v-adjust -0.1)) nil nil :ascent center :mask heuristic)
-     ("people" ,(list (all-the-icons-material "people" :v-adjust -0.25)) nil nil :ascent center :mask heuristic)
-     ("work" ,(list (all-the-icons-material "work" :v-adjust -0.25)) nil nil :ascent center :mask heuristic)
-     ("routine" ,(list (all-the-icons-material "repeat" :v-adjust -0.25)) nil nil :ascent center :mask heuristic)
-     ))
-  (org-agenda-custom-commands
-   '(("d" "Dashboard"
-      ((agenda "" ((org-deadline-warning-days 7)))
-       (todo "NEXT"
-             ((org-agenda-overriding-header "Next Tasks")))
-       (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+  (setq org-tag-alist
+    '((:startgroup)
+       ; Put mutually exclusive tags here
+       (:endgroup)
+       ("@errand" . ?E)
+       ("@home" . ?H)
+       ("@work" . ?W)
+       ("@uni" . ?u)
+       ("agenda" . ?a)
+       ("planning" . ?p)
+       ("batch" . ?b)
+       ("note" . ?n)
+       ("idea" . ?i)))
 
-     ("n" "Next Tasks"
-      ((agenda "" ((org-deadline-warning-days 7)))
-       (todo "NEXT"
-             ((org-agenda-overriding-header "Next Tasks")))))
-
-     ("h" "Home Tasks" tags-todo "@home")
-     ("w" "Work Tasks" tags-todo "@work")
-
-     ("E" "Easy Tasks" tags-todo "easy")
-     ("C" "Challenging Tasks" tags-todo "challenging")
-
-     ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-      ((org-agenda-overriding-header "Low Effort Tasks")
-       (org-agenda-max-todos 20)
-       (org-agenda-files org-agenda-files)))))
-  (org-agenda-dim-blocked-tasks t)
- ;; (org-agenda-files '("~/.personal/agenda"))
-  (org-agenda-inhibit-startup t)
-  (org-agenda-show-log t)
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-span 2)
-  (org-agenda-start-on-weekday 6)
-  (org-agenda-start-with-log-mode t)
-  (org-agenda-sticky nil)
-  (org-agenda-tags-column 90)
-  (org-agenda-time-grid '((daily today require-timed)))
-  (org-agenda-use-tag-inheritance t)
-  (org-columns-default-format "%14SCHEDULED %Effort{:} %1PRIORITY %TODO %50ITEM %TAGS")
-  (org-default-notes-file "~/.personal/agenda/inbox.org")
- ;; (org-directory "~/.personal")
-  (org-enforce-todo-dependencies t)
-  (org-habit-completed-glyph ?✓)
-  (org-habit-graph-column 80)
-  (org-habit-show-habits-only-for-today nil)
-  (org-habit-today-glyph ?‖)
-  (org-track-ordered-property-with-tag t))
-
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-habit-graph-column 60)
 #+end_src
 
 ** Org-auto-tangle
@@ -1594,6 +1485,24 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
        :desc "Insert node"         "i" #'org-roam-node-insert
        :desc "Capture to node"     "n" #'org-roam-capture
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
+#+end_src
+
+** Org Roam UI
+#+begin_src emacs-lisp
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 #+end_src
 
 ** Miscellaneous Org Mode stuff
