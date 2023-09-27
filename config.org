@@ -6,6 +6,7 @@
 * TABLE OF CONTENTS :toc:
 - [[#about-this-config][ABOUT THIS CONFIG]]
 - [[#wayland-integration][WAYLAND INTEGRATION]]
+- [[#dashboard][DASHBOARD]]
 - [[#beacon][BEACON]]
 - [[#cache][CACHE]]
 - [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
@@ -96,6 +97,32 @@ To make emacs work with wl-clipboard
                                       (unless (and wl-copy-p (process-live-p wl-copy-p))
                                         (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
 #+end_src
+
+* DASHBOARD
+
+#+begin_src emacs-lisp
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
+(setq dashboard-startup-banner  2)
+
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+
+(setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (projects . 5)
+                        (agenda . 5)
+                        (registers . 5)))
+
+(setq dashboard-center-content t)
+
+(setq doom-fallback-buffer "*dashboard*")
+#+end_src
+
+#+RESULTS:
+: *dashboard*
 
 * BEACON
 Never lose your cursor.  When you scroll, your cursor will shine!  This is a global minor-mode. Turn it on everywhere with:

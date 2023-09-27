@@ -141,4 +141,8 @@ Run `doom sync` after installing Doom Emacs.
 
 In Emacs, run:
 - `M-x all-the-icons-install-fonts`
-- `M-x nerd-icons-install-fonts`
+- `M-x nerd-icons-install-fonts
+
+## TODO
+- Update README Images
+- GitHub Copilot
