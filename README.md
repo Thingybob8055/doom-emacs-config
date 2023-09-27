@@ -116,7 +116,9 @@ sudo apt install xclip
 <!-- sudo apt install libtool-bin -->
 <!-- ``` -->
 
-libtool-bin
+<!-- libtool-bin -->
+
+<!-- install imagemagick -->
 
 ## Installation
 
