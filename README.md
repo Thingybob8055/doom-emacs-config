@@ -135,3 +135,4 @@ Run `doom sync` after installing Doom Emacs.
 
 3. Download the repo and copy the contents of this repo to the directory: `~/.config/doom`
 4. Run `doom sync` command after copying the contents.
+5. Create a folder `+STORE` in your home directory
