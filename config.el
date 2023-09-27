@@ -1038,6 +1038,14 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (evil-define-key 'normal org-mode-map (kbd "g l") 'org-down-element)
 (map! :leader :desc "org agenda" "a g" #'org-agenda)
 
+(setq org-latex-create-formula-image-program 'imagemagick)
+
+(setq org-latex-packages-alist
+      (quote (("" "color" t)
+          ("" "minted" t)
+          ("" "parskip" t)
+          ("" "tikz" t))))
+
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)

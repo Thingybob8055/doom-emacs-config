@@ -104,3 +104,4 @@
 (package! visual-fill-column)
 (unpin! org-roam)
 (package! org-roam-ui)
+(package! texfrag)
