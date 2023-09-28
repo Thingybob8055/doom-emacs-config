@@ -1065,6 +1065,15 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           ("" "parskip" t)
           ("" "tikz" t))))
 
+(defun my/resize-org-latex-overlays ()
+  (cl-loop for o in (car (overlay-lists))
+     if (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay)
+     do (plist-put (cdr (overlay-get o 'display))
+		   :scale (expt text-scale-mode-step
+				text-scale-mode-amount))))
+(use-package org
+:hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
+
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
