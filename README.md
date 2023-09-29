@@ -157,7 +157,10 @@ Run `doom sync` after installing Doom Emacs.
   - `M-x nerd-icons-install-fonts`
 - If you have issues with not being able to preview inline LaTeX, such as equations, edit this file: `/etc/ImageMagick-6/policy.xml`
   - Change the line `<policy domain="coder" rights="none" pattern="PDF" />` to: `<policy domain="coder" rights="read|write" pattern="PDF" />`
-
+- On Pop!_OS `libstdc++-12-dev` is not installed by default:
+```bash
+sudo apt install libstdc++-12-dev
+```
 
 ## TODO
 - Update README Images
