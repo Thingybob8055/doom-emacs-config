@@ -30,7 +30,7 @@
 
 (beacon-mode 1)
 
-(setq cache-long-scans nil)
+(setq-default cache-long-scans nil)
 
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 

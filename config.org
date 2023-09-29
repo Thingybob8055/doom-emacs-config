@@ -135,7 +135,7 @@ Never lose your cursor.  When you scroll, your cursor will shine!  This is a glo
 To fix caching errors
 
 #+begin_src emacs-lisp
-(setq cache-long-scans nil)
+(setq-default cache-long-scans nil)
 #+end_src
 
 * BOOKMARKS AND BUFFERS
