@@ -1065,6 +1065,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           ("" "parskip" t)
           ("" "tikz" t))))
 
+(setq org-preview-latex-default-process 'dvisvgm)
+
 (defun my/resize-org-latex-overlays ()
   (cl-loop for o in (car (overlay-lists))
      if (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay)

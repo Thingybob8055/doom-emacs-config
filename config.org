@@ -1563,6 +1563,8 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
           ("" "parskip" t)
           ("" "tikz" t))))
 
+(setq org-preview-latex-default-process 'dvisvgm)
+
 (defun my/resize-org-latex-overlays ()
   (cl-loop for o in (car (overlay-lists))
      if (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay)
