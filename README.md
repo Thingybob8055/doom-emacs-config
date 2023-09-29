@@ -124,6 +124,15 @@ sudo apt install xclip
 sudo apt install imagemagick
 ```
 
+- **Install `dvipng` and `dvisvgm`**
+
+Just incase it is not installed by default in your distro.
+
+```bash
+sudo apt install dvipng
+sudo apt install dvisvgm
+```
+
 ## Installation
 
 1. First install Emacs. Latest version is recommended. On Ubuntu 22.04 LTS based Linux distributions, you can use snap to install latest version.
