@@ -1076,6 +1076,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (use-package org
 :hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
 
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)

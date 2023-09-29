@@ -1573,6 +1573,8 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 				text-scale-mode-amount))))
 (use-package org
 :hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
+
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 #+end_src
 
 * IRONY MODE AND CLANGD
