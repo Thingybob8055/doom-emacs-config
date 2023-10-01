@@ -1575,6 +1575,11 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 :hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (set-face-attribute 'org-indent nil
+                                :inherit '(org-hide fixed-pitch))))
 #+end_src
 
 * IRONY MODE AND CLANGD

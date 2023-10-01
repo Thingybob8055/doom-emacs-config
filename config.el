@@ -1078,6 +1078,11 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (set-face-attribute 'org-indent nil
+                                :inherit '(org-hide fixed-pitch))))
+
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
