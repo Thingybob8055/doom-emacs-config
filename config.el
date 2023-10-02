@@ -1067,6 +1067,9 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (setq org-preview-latex-default-process 'dvisvgm)
 
+(require 'org-src)
+(add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
+
 (defun my/resize-org-latex-overlays ()
   (cl-loop for o in (car (overlay-lists))
      if (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay)
