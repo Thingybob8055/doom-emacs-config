@@ -25,6 +25,14 @@ Install the Ubuntu fonts from here: [Ubuntu Fonts](https://design.ubuntu.com/fon
 sudo apt install build-essential
 ```
 
+- **Install `cmake`**
+
+Needed to compile vterm
+
+``` bash
+sudo apt install cmake
+```
+
 - **Install pip**
 
 ``` bash
@@ -105,11 +113,18 @@ sudo apt install ripgrep
 
 ``` bash
 sudo apt install xclip
+
 ```
 
-<!-- - **Other packages** -->
+**Other packages**
 
-<!-- `libtool-bin` is needed to compile `vterm` -->
+In-case issues happen:
+
+- `libtool-bin` is needed to compile `vterm`
+
+- `wl-clipboard` on wayland
+
+- `aspell`
 
 <!-- ``` bash -->
 <!-- sudo apt install libtool -->

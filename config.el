@@ -294,68 +294,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (kbd "RET") 'ednc-invoke-action
   (kbd "e")   'ednc-toggle-expanded-view)
 
-(setq elfeed-goodies/entry-pane-size 0.5)
-
-(evil-define-key 'normal elfeed-show-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-(evil-define-key 'normal elfeed-search-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-(setq elfeed-feeds (quote
-                    (("https://www.reddit.com/r/linux.rss" reddit linux)
-                     ("https://www.reddit.com/r/commandline.rss" reddit commandline)
-                     ("https://www.reddit.com/r/distrotube.rss" reddit distrotube)
-                     ("https://www.reddit.com/r/emacs.rss" reddit emacs)
-                     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
-                     ("https://hackaday.com/blog/feed/" hackaday linux)
-                     ("https://opensource.com/feed" opensource linux)
-                     ("https://linux.softpedia.com/backend.xml" softpedia linux)
-                     ("https://itsfoss.com/feed/" itsfoss linux)
-                     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
-                     ("https://www.phoronix.com/rss.php" phoronix linux)
-                     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
-                     ("https://www.computerworld.com/index.rss" computerworld linux)
-                     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
-                     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
-                     ("https://betanews.com/feed" betanews linux)
-                     ("http://lxer.com/module/newswire/headlines.rss" lxer linux))))
-
-(emms-all)
-(emms-default-players)
-(emms-mode-line 1)
-(emms-playing-time 1)
-(setq emms-source-file-default-directory "~/Music/"
-      emms-playlist-buffer-name "*Music*"
-      emms-info-asynchronously t
-      emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
-(map! :leader
-      (:prefix ("a" . "EMMS audio player")
-       :desc "Go to emms playlist"      "a" #'emms-playlist-mode-go
-       :desc "Emms pause track"         "x" #'emms-pause
-       :desc "Emms stop track"          "s" #'emms-stop
-       :desc "Emms play previous track" "p" #'emms-previous
-       :desc "Emms play next track"     "n" #'emms-next))
-
 (use-package emojify
   :hook (after-init . global-emojify-mode))
-
-(map! :leader
-      (:prefix ("e". "evaluate/ERC/EWW")
-       :desc "Launch ERC with TLS connection" "E" #'erc-tls))
-
-(setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
-      erc-server "irc.libera.chat"
-      erc-nick "distrotube"
-      erc-user-full-name "Derek Taylor"
-      erc-track-shorten-start 24
-      erc-autojoin-channels-alist '(("irc.libera.chat" "#archlinux" "#linux" "#emacs"))
-      erc-kill-buffer-on-part t
-      erc-fill-column 100
-      erc-fill-function 'erc-fill-static
-      erc-fill-static-center 20
-      ;; erc-auto-query 'bury
-      )
 
 (map! :leader
       (:prefix ("e". "evaluate/ERC/EWW")
@@ -365,19 +305,9 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
        :desc "Evaluate last sexpression" "l" #'eval-last-sexp
        :desc "Evaluate elisp in region"  "r" #'eval-region))
 
-(setq browse-url-browser-function 'eww-browse-url)
-(map! :leader
-      :desc "Search web for text between BEG/END"
-      "s w" #'eww-search-words
-      (:prefix ("e" . "evaluate/ERC/EWW")
-       :desc "Eww web browser" "w" #'eww
-       :desc "Eww reload page" "R" #'eww-reload))
-
-(autoload 'exwm-enable "exwm-config.el")
-
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 23))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 17)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 22))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -402,7 +332,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
        (my-adjoin-to-list-or-symbol
         'fixed-pitch
         (face-attribute face :inherit))))
-    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line 'org-list-dt)))
+    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line)))
 
 (set-frame-font "JetBrains Mono 14" nil t)
 (set-face-attribute 'variable-pitch nil :font "Cantarell")
@@ -485,15 +415,15 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (xterm-mouse-mode 1)
 
-(after! neotree
-  (setq neo-smart-open t
-        neo-window-fixed-size nil
-        neo-vc-integration t))
-(after! doom-themes
-  (setq doom-neotree-enable-variable-pitch t))
-(map! :leader
-      :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
-      :desc "Open directory in neotree"  "d n" #'neotree-dir)
+;; (after! neotree
+;;   (setq neo-smart-open t
+;;         neo-window-fixed-size nil
+;;         neo-vc-integration t))
+;; (after! doom-themes
+;;   (setq doom-neotree-enable-variable-pitch t))
+;; (map! :leader
+;;       :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
+;;       :desc "Open directory in neotree"  "d n" #'neotree-dir)
 
 (map! :leader
       (:prefix ("=" . "open file")
@@ -1692,3 +1622,44 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (setq browse-url-browser-function 'browse-url-generic)
 (setq browse-url-generic-program "firefox")
+
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (c "https://github.com/tree-sitter/tree-sitter-c")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+;; (setq major-mode-remap-alist
+;;  '((cpp-mode . c++-ts-mode)
+;;    (c++-mode . c++-ts-mode)
+;;    (c-mode . c-ts-mode)))
+
+(require 'fast-scroll)
+;; If you would like to turn on/off other modes, like flycheck, add
+;; your own hooks.
+(add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+(add-hook 'fast-scroll-start-hook (lambda () (flyspell-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (flyspell-mode 1)))
+(add-hook 'fast-scroll-start-hook (lambda () (font-lock-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (font-lock-mode 1)))
+(fast-scroll-config)
+(fast-scroll-mode 1)
+
+(after! tex-mode
+  (map-delete sp-pairs 'LaTeX-mode)
+  (map-delete sp-pairs 'latex-mode)
+  (map-delete sp-pairs 'tex-mode)
+  (map-delete sp-pairs 'plain-tex-mode))

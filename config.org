@@ -24,13 +24,8 @@
   - [[#making-deleted-files-go-to-trash-can][Making deleted files go to trash can]]
 - [[#doom-theme][DOOM THEME]]
 - [[#ednc-notifications][EDNC (Notifications)]]
-- [[#elfeed][ELFEED]]
-- [[#emms][EMMS]]
 - [[#emojis][EMOJIS]]
-- [[#erc][ERC]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
-- [[#eww][EWW]]
-- [[#exwm][EXWM]]
 - [[#fonts][FONTS]]
 - [[#insert-date][INSERT DATE]]
 - [[#ivy][IVY]]
@@ -78,6 +73,8 @@
 - [[#treemacs][TREEMACS]]
 - [[#visual-column-fill-for-org][VISUAL COLUMN FILL (FOR ORG)]]
 - [[#browser-fix][BROWSER FIX]]
+- [[#treesit][TREESIT]]
+- [[#fast-scroll][FAST SCROLL]]
 
 * ABOUT THIS CONFIG
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.
@@ -566,99 +563,12 @@ The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure
   (kbd "e")   'ednc-toggle-expanded-view)
 #+end_src
 
-* ELFEED
-An RSS newsfeed reader for Emacs.
-
-#+BEGIN_SRC emacs-lisp
-(setq elfeed-goodies/entry-pane-size 0.5)
-
-(evil-define-key 'normal elfeed-show-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-(evil-define-key 'normal elfeed-search-mode-map
-  (kbd "J") 'elfeed-goodies/split-show-next
-  (kbd "K") 'elfeed-goodies/split-show-prev)
-(setq elfeed-feeds (quote
-                    (("https://www.reddit.com/r/linux.rss" reddit linux)
-                     ("https://www.reddit.com/r/commandline.rss" reddit commandline)
-                     ("https://www.reddit.com/r/distrotube.rss" reddit distrotube)
-                     ("https://www.reddit.com/r/emacs.rss" reddit emacs)
-                     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
-                     ("https://hackaday.com/blog/feed/" hackaday linux)
-                     ("https://opensource.com/feed" opensource linux)
-                     ("https://linux.softpedia.com/backend.xml" softpedia linux)
-                     ("https://itsfoss.com/feed/" itsfoss linux)
-                     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
-                     ("https://www.phoronix.com/rss.php" phoronix linux)
-                     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
-                     ("https://www.computerworld.com/index.rss" computerworld linux)
-                     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
-                     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
-                     ("https://betanews.com/feed" betanews linux)
-                     ("http://lxer.com/module/newswire/headlines.rss" lxer linux))))
-#+END_SRC
-
-* EMMS
-One of the media players available for Emacs is emms, which stands for Emacs Multimedia System.  By default, Doom Emacs does not use 'SPC a',' so the format I use for these bindings is 'SPC a' plus 'key'.
-
-| COMMAND               | DESCRIPTION                       | KEYBINDING |
-|-----------------------+-----------------------------------+------------|
-| emms-playlist-mode-go | /Switch to the playlist buffer/     | SPC a a    |
-| emms-pause            | /Pause the track/                   | SPC a x    |
-| emms-stop             | /Stop the track/                    | SPC a s    |
-| emms-previous         | /Play previous track in playlist/   | SPC a p    |
-| emms-next             | /Play next track in playlist/       | SPC a n    |
-
-#+BEGIN_SRC emacs-lisp
-(emms-all)
-(emms-default-players)
-(emms-mode-line 1)
-(emms-playing-time 1)
-(setq emms-source-file-default-directory "~/Music/"
-      emms-playlist-buffer-name "*Music*"
-      emms-info-asynchronously t
-      emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
-(map! :leader
-      (:prefix ("a" . "EMMS audio player")
-       :desc "Go to emms playlist"      "a" #'emms-playlist-mode-go
-       :desc "Emms pause track"         "x" #'emms-pause
-       :desc "Emms stop track"          "s" #'emms-stop
-       :desc "Emms play previous track" "p" #'emms-previous
-       :desc "Emms play next track"     "n" #'emms-next))
-#+END_SRC
-
 * EMOJIS
 Emojify is an Emacs extension to display emojis. It can display github style emojis like :smile: or plain ascii ones like :).
 
 #+begin_src emacs-lisp
 (use-package emojify
   :hook (after-init . global-emojify-mode))
-#+end_src
-
-* ERC
-ERC is a built-in Emacs IRC client.
-
-| COMMAND | DESCRIPTION                                 | KEYBINDING |
-|---------+---------------------------------------------+------------|
-| erc-tls | /Launch ERC using more secure TLS connection/ | SPC e E    |
-
-#+begin_src emacs-lisp
-(map! :leader
-      (:prefix ("e". "evaluate/ERC/EWW")
-       :desc "Launch ERC with TLS connection" "E" #'erc-tls))
-
-(setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
-      erc-server "irc.libera.chat"
-      erc-nick "distrotube"
-      erc-user-full-name "Derek Taylor"
-      erc-track-shorten-start 24
-      erc-autojoin-channels-alist '(("irc.libera.chat" "#archlinux" "#linux" "#emacs"))
-      erc-kill-buffer-on-part t
-      erc-fill-column 100
-      erc-fill-function 'erc-fill-static
-      erc-fill-static-center 20
-      ;; erc-auto-query 'bury
-      )
 #+end_src
 
 * EVALUATE ELISP EXPRESSIONS
@@ -682,24 +592,6 @@ Changing some keybindings from their defaults to better fit with Doom Emacs, and
        :desc "Evaluate elisp in region"  "r" #'eval-region))
 #+END_SRC
 
-* EWW
-EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to open in a specific browser (eww) with browse-url-browser-function.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eval' keybindings).  I chose to use 'SPC s w' for eww-search-words because Doom Emacs uses 'SPC s' for 'search' commands.
-
-#+BEGIN_SRC emacs-lisp
-(setq browse-url-browser-function 'eww-browse-url)
-(map! :leader
-      :desc "Search web for text between BEG/END"
-      "s w" #'eww-search-words
-      (:prefix ("e" . "evaluate/ERC/EWW")
-       :desc "Eww web browser" "w" #'eww
-       :desc "Eww reload page" "R" #'eww-reload))
-#+END_SRC
-
-* EXWM
-#+begin_src emacs-lisp
-(autoload 'exwm-enable "exwm-config.el")
-#+end_src
-
 * FONTS
 Settings related to fonts within Doom Emacs:
 + 'doom-font' -- standard monospace font that is used for most things in Emacs.
@@ -709,9 +601,9 @@ Settings related to fonts within Doom Emacs:
 + 'font-lock-keyword-face' -- for keywords with special significance like 'setq' in elisp.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 23))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 17)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 22))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -736,7 +628,7 @@ Settings related to fonts within Doom Emacs:
        (my-adjoin-to-list-or-symbol
         'fixed-pitch
         (face-attribute face :inherit))))
-    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line 'org-list-dt)))
+    (list 'org-code 'org-block 'org-table 'org-verbatim 'org-checkbox 'line-number-current-line 'line-number 'org-formula 'org-special-keyword 'org-meta-line)))
 
 (set-frame-font "JetBrains Mono 14" nil t)
 (set-face-attribute 'variable-pitch nil :font "Cantarell")
@@ -905,15 +797,15 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 | neotree- dir   | /Open directory in neotree/ | SPC d n    |
 
 #+BEGIN_SRC emacs-lisp
-(after! neotree
-  (setq neo-smart-open t
-        neo-window-fixed-size nil
-        neo-vc-integration t))
-(after! doom-themes
-  (setq doom-neotree-enable-variable-pitch t))
-(map! :leader
-      :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
-      :desc "Open directory in neotree"  "d n" #'neotree-dir)
+;; (after! neotree
+;;   (setq neo-smart-open t
+;;         neo-window-fixed-size nil
+;;         neo-vc-integration t))
+;; (after! doom-themes
+;;   (setq doom-neotree-enable-variable-pitch t))
+;; (map! :leader
+;;       :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
+;;       :desc "Open directory in neotree"  "d n" #'neotree-dir)
 #+END_SRC
 
 * OPEN SPECIFIC FILES
@@ -2333,4 +2225,52 @@ This is for Discord rich presence
 #+begin_src emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic)
 (setq browse-url-generic-program "firefox")
+#+end_src
+
+* TREESIT
+
+#+begin_src emacs-lisp
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (c "https://github.com/tree-sitter/tree-sitter-c")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+;; (setq major-mode-remap-alist
+;;  '((cpp-mode . c++-ts-mode)
+;;    (c++-mode . c++-ts-mode)
+;;    (c-mode . c-ts-mode)))
+#+end_src
+
+* FAST SCROLL
+#+begin_src emacs-lisp
+(require 'fast-scroll)
+;; If you would like to turn on/off other modes, like flycheck, add
+;; your own hooks.
+(add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+(add-hook 'fast-scroll-start-hook (lambda () (flyspell-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (flyspell-mode 1)))
+(add-hook 'fast-scroll-start-hook (lambda () (font-lock-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (font-lock-mode 1)))
+(fast-scroll-config)
+(fast-scroll-mode 1)
+
+(after! tex-mode
+  (map-delete sp-pairs 'LaTeX-mode)
+  (map-delete sp-pairs 'latex-mode)
+  (map-delete sp-pairs 'tex-mode)
+  (map-delete sp-pairs 'plain-tex-mode))
 #+end_src
