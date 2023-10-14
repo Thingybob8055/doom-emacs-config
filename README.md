@@ -177,6 +177,7 @@ Run `doom sync` after installing Doom Emacs.
 ```bash
 sudo apt install libstdc++-12-dev
 ```
+- On KDE, comment out the Wayland Integration section in `config.org` to fix clibboard issues.
 
 ## TODO
 - Update README Images
