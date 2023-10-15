@@ -28,7 +28,7 @@
 
 (setq doom-fallback-buffer "*dashboard*")
 
-(beacon-mode 1)
+;;(beacon-mode 1)
 
 (setq-default cache-long-scans nil)
 
@@ -270,10 +270,10 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-palenight)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
-(setq load-theme 'doom-one)
+(setq load-theme 'doom-palenight)
 
 (ednc-mode 1)
 
@@ -981,7 +981,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   :config
   (org-wild-notifier-mode 1))
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.75))
 
 ;; Key Rebinds
 (evil-define-key 'normal org-mode-map (kbd "g l") 'org-down-element)
@@ -1009,7 +1009,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (use-package org
 :hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (add-hook 'org-mode-hook
           (lambda ()

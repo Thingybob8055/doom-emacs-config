@@ -118,14 +118,11 @@ To make emacs work with wl-clipboard
 (setq doom-fallback-buffer "*dashboard*")
 #+end_src
 
-#+RESULTS:
-: *dashboard*
-
 * BEACON
 Never lose your cursor.  When you scroll, your cursor will shine!  This is a global minor-mode. Turn it on everywhere with:
 
 #+begin_src emacs-lisp
-(beacon-mode 1)
+;;(beacon-mode 1)
 #+end_src
 
 * CACHE
@@ -531,10 +528,10 @@ ln -s ~/.local/share/Trash .
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for counsel-load-theme with 'SPC h t'.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-palenight)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
-(setq load-theme 'doom-one)
+(setq load-theme 'doom-palenight)
 #+END_SRC
 
 * EDNC (Notifications)
@@ -1441,7 +1438,7 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 ** Miscellaneous Org Mode stuff
 
 #+begin_src emacs-lisp
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.75))
 
 ;; Key Rebinds
 (evil-define-key 'normal org-mode-map (kbd "g l") 'org-down-element)
@@ -1469,7 +1466,7 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 (use-package org
 :hook (org-mode . (lambda () (add-hook 'text-scale-mode-hook #'my/resize-org-latex-overlays nil t))))
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (add-hook 'org-mode-hook
           (lambda ()
