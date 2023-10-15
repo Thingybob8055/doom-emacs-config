@@ -75,6 +75,7 @@
 - [[#browser-fix][BROWSER FIX]]
 - [[#treesit][TREESIT]]
 - [[#fast-scroll][FAST SCROLL]]
+- [[#copilot][COPILOT]]
 
 * ABOUT THIS CONFIG
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.
@@ -2270,4 +2271,17 @@ This is for Discord rich presence
   (map-delete sp-pairs 'latex-mode)
   (map-delete sp-pairs 'tex-mode)
   (map-delete sp-pairs 'plain-tex-mode))
+#+end_src
+
+* COPILOT
+
+#+begin_src emacs-lisp
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 #+end_src
