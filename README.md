@@ -126,6 +126,8 @@ In-case issues happen:
 
 - `aspell`
 
+- `fd`
+
 <!-- ``` bash -->
 <!-- sudo apt install libtool -->
 <!-- sudo apt install libtool-bin -->
