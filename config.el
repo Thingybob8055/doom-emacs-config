@@ -1646,6 +1646,13 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
 (add-hook 'cpp-hook #'c-ts-mode)
+(add-hook 'rustic-mode-hook 'rust-ts-mode)
+
+(use-package rustic
+:ensure t
+:config
+:hook ((rust-ts-mode lsp-rust-analyzer) .
+         (lambda () (require 'rustic) (lsp))))
 
 (use-package treesit-auto
   :demand t
