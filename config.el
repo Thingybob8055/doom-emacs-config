@@ -1,13 +1,13 @@
-(when (getenv "WAYLAND_DISPLAY")
-  (setq wl-copy-p nil
-        interprogram-cut-function (lambda (text)
-                                    (setq-local process-connection-type 'pipe)
-                                    (setq wl-copy-p (start-process "wl-copy" nil "wl-copy" "-f" "-n"))
-                                    (process-send-string wl-copy-p text)
-                                    (process-send-eof wl-copy-p))
-        interprogram-paste-function (lambda ()
-                                      (unless (and wl-copy-p (process-live-p wl-copy-p))
-                                        (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
+;; (when (getenv "WAYLAND_DISPLAY")
+;;   (setq wl-copy-p nil
+;;         interprogram-cut-function (lambda (text)
+;;                                     (setq-local process-connection-type 'pipe)
+;;                                     (setq wl-copy-p (start-process "wl-copy" nil "wl-copy" "-f" "-n"))
+;;                                     (process-send-string wl-copy-p text)
+;;                                     (process-send-eof wl-copy-p))
+;;         interprogram-paste-function (lambda ()
+;;                                       (unless (and wl-copy-p (process-live-p wl-copy-p))
+;;                                         (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
 
 (use-package dashboard
   :ensure t
@@ -981,7 +981,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   :config
   (org-wild-notifier-mode 1))
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.75))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.5))
 
 ;; Key Rebinds
 (evil-define-key 'normal org-mode-map (kbd "g l") 'org-down-element)
@@ -1028,7 +1028,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (setq ccls-executable "ccls")
   (setq lsp-prefer-flymake nil)
   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-  :hook ((c-mode c++-mode objc-mode) .
+  :hook ((c-mode c++-mode objc-mode c-ts-mode c++-ts-mode) .
          (lambda () (require 'ccls) (lsp))))
 
 (use-package lsp-mode
@@ -1623,6 +1623,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq browse-url-browser-function 'browse-url-generic)
 (setq browse-url-generic-program "firefox")
 
+(require 'treesit)
+
 (setq treesit-language-source-alist
    '((bash "https://github.com/tree-sitter/tree-sitter-bash")
      (cmake "https://github.com/uyha/tree-sitter-cmake")
@@ -1637,9 +1639,18 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
      (markdown "https://github.com/ikatyang/tree-sitter-markdown")
      (python "https://github.com/tree-sitter/tree-sitter-python")
      (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust")
+     (latex "https://github.com/latex-lsp/tree-sitter-latex")
      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+(add-hook 'cpp-hook #'c-ts-mode)
+
+(use-package treesit-auto
+  :demand t
+  :config
+  (global-treesit-auto-mode))
 
 ;; (setq major-mode-remap-alist
 ;;  '((cpp-mode . c++-ts-mode)

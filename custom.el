@@ -79,6 +79,7 @@
      ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))
  '(custom-safe-themes
    '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "ac18cc10455c6c26a98354ba8f9d338842d7ecc9ae3d28c205ed154ef20d74ce" default))
+ '(delete-selection-mode nil)
  '(elcord-display-line-numbers nil)
  '(elcord-editor-icon "emacs_icon")
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
@@ -88,7 +89,8 @@
  '(neo-theme 'classic)
  '(neo-vc-integration '(face char))
  '(neo-window-position 'right)
- '(package-selected-packages '(dap-mode)))
+ '(package-selected-packages '(dap-mode))
+ '(treesit-font-lock-level 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
