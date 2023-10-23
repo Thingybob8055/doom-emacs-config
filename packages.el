@@ -97,7 +97,9 @@
 (package! git-gutter)
 (package! git-gutter-fringe)
 (package! lsp-latex)
-(package! elcord)
+;(package! elcord)
+(package! elcord :recipe (:host github :repo "Thingybob8055/elcord"))`
+;(package! elcord :disable t)
 (package! cl-lib)
 (package! visual-fill-column)
 (unpin! org-roam)

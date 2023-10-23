@@ -180,7 +180,8 @@ Run `doom sync` after installing Doom Emacs.
 sudo apt install libstdc++-12-dev
 ```
 - On KDE, comment out the Wayland Integration section in `config.org` to fix clibboard issues.
-
+- `M-x treesit-install-language-grammar`
+- `M-x customize-group` and change elcord to use `ts-mode` to have the correct Discord rich presence icon.
 ## TODO
 - Update README Images
 - GitHub Copilot

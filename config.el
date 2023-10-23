@@ -1592,6 +1592,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (require 'elcord)
 (elcord-mode)
+(setq elcord-display-project-name t)
+(setq elcord-display-line-numbers nil)
 
 (advice-add #'doom-highlight-non-default-indentation-h :override #'ignore)
 
@@ -1645,7 +1647,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-(add-hook 'cpp-hook #'c-ts-mode)
+(add-hook 'cpp-hook #'c++-ts-mode)
+(add-hook 'c-hook #'c-ts-mode)
 (add-hook 'rustic-mode-hook 'rust-ts-mode)
 
 (use-package rustic
@@ -1653,6 +1656,12 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 :config
 :hook ((rust-ts-mode lsp-rust-analyzer) .
          (lambda () (require 'rustic) (lsp))))
+
+(use-package lsp-pyright
+:ensure t
+:config
+:hook ((python-ts-mode python-mode) .
+         (lambda () (require 'lsp-pyright) (lsp))))
 
 (use-package treesit-auto
   :demand t
