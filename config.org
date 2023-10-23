@@ -2271,6 +2271,7 @@ This is for Discord rich presence
 (use-package treesit-auto
   :demand t
   :config
+  (setq treesit-auto-install 'prompt)
   (global-treesit-auto-mode))
 
 ;; (setq major-mode-remap-alist

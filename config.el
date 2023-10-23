@@ -1666,6 +1666,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (use-package treesit-auto
   :demand t
   :config
+  (setq treesit-auto-install 'prompt)
   (global-treesit-auto-mode))
 
 ;; (setq major-mode-remap-alist
